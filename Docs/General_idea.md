@@ -1,6 +1,6 @@
-# App name: Just Eat 
+# INITIAL IDEA App name: Just Eat 
  
-Science-based nutrition guiding app that automatically plans your meals and uses DoorDash API to order your food automatically; a cheaper alternative to HelloFresh or similar 
+An algorithmic groceries shopper that automatically plans your meals based on nutritional guidelines and uses DoorDash API or Kroger API to order groceries automatically; a cheaper alternative to HelloFresh or similar.
  
 This is not an “AI powered” meal planning app. The hard-coded algorithm should be understandable and transparent instead of a black box, since it directly deals with health. (This also means the users will be able to tweak the algorithm as they like, say, to make a diet only consisting of candies and energy drinks for fun, but we will not discuss about this possibility in this brainstorming memo) 
  
@@ -28,3 +28,26 @@ This is not a simple delivery ordering app, the user shall go to the actual Krog
     o  Casual health advice 
 
 ·  User can alternatively use Kroger API (https://developer.kroger.com/)  
+
+# SPECIFICATIONS
+
+1. User auth and user management
+2. Processing of the user's underlying health conditions for personalized meal planning
+3. Allow users to input their allergies and dietary preferences (is this basically the same feature as (2)?)
+4. Calculate daily macronutrient quotas based on user data and algorithm.
+5. Integrate with DoorDash API (or Kroger API or similar) to automatically order meals based on the meal plan.
+6. Implement a transparent, hard-coded nutrition algorithm for meal planning based on user data.
+7. Allow users to remove preexisting items within macronutrient quotas to add new items with similar nutritional value.
+8. Create a usable mobile UI
+9. Create a TUI for project contributors and people aiming for home IoT integration
+10. Both mobile and TUI versions share the same backend or at least the same database
+11. Provide an information section about the basics of nutrition and casual health advice
+12. In the information section, implement in-app search functionality for PubMed and Google Scholar.
+13. Integrate an AI chatbot for aggregating and analyzing new research, similar to Perplexity AI.
+14. User Profile Management: Allow users to update their personal information, health conditions, and dietary preferences.
+15. Meal History Tracking: Keep a record of previously ordered meals for users to review and adjust future meal plans.
+16. Nutritional Value Display: Display the nutritional value of each meal and its macronutrient breakdown.
+17. Order Cancellation: Enable users to cancel orders before they are processed by the grocery service.
+18. Price Estimates: Provide estimated prices for the grocery orders based on the meal plan.
+19. Push Notifications: Send users push notifications for order updates, reminders to eat meals, or to inform them about new features or offers.
+20. *placeholder*

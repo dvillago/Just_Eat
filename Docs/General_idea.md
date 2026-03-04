@@ -32,21 +32,39 @@ This is not a simple delivery ordering app, the user shall go to the actual Krog
 # SPECIFICATIONS
 
 User management, including authentication
+
 Basic info input form/screen: Allow users to input their allergies and dietary preferences
+
 Health conditions input form/screen: Allow users to input underlying health conditions that might influence their meal planning (e.g. type 2 diabetes)
+
 User health profiles should be viewable in a single page: Allow users to update their personal information, health conditions, and dietary preferences.
+
 Hard-coded nutrition algorithm for meal planning based on user data should be transparent and modifiable by the user without being too tech savvy or med savvy
+
 Show daily macronutrient goals/quotas based on user data and algorithm.
+
 Integrate with DoorDash API (or Kroger API or similar) to automatically order meals based on the meal plan.
+
 Allow users to remove preexisting items within macronutrient quotas to add new items with similar nutritional value.
+
 Create a usable mobile UI
+
 Create a TUI for project contributors and people aiming for home IoT integration
+
 Both mobile and TUI versions should synch (hopefully, sharing the same backend)
+
 Provide an information section about the basics of nutrition and casual health advice
+
 In the information section, implement in-app search functionality for PubMed and Google Scholar.
+
 Integrate an AI chatbot for aggregating and analyzing new research, similar to Perplexity AI.
+
 Meal History Tracking: Keep a record of previously ordered meals for users to review and adjust future meal plans.
+
 Nutritional Value Display: Display the nutritional value of each meal and its macronutrient breakdown.
+
 Order Cancellation: Enable users to cancel orders before they are processed by the grocery service.
+
 Price Estimates: Provide estimated prices for the grocery orders based on the meal plan.
+
 Push Notifications (for mobile version only): Send users push notifications for order updates, reminders to eat meals, or to inform them about new features or offers.

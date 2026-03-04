@@ -14,8 +14,8 @@ For quick navigation, you can refer to the following file structure:
 
 ```text
 Docs/
-└── Initial_Idea.md                                  # High-level project concept
+└── General_Idea.md                                   # High-level project concept
 └── Specifications_Analysis/    
-    ├── Specification for Requirements Analysis.md   # Detailed requirements document
-    └── Specs_sheet_example.md                       # Example template for specsheets
+    ├── HW_instructions.md                            # Homework instructions
+    └── ai_generated_example.md                       # Example template for specsheets (NOT A DRAFT)
 ```

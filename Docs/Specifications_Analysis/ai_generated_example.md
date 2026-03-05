@@ -1,162 +1,337 @@
-[! This is not a draft, but an AI-generated example for this assignment to be used as reference]
-
-***
-
 # Requirement Analysis Document: Just Eat
-
 ## 1. Fully Dressed Use Cases
+Amisha Dwivedy – Use Cases
+Use Case 1
+ID: UC-01
+Title: Create Personalized Nutrition Plan
+Primary Actor: User
+Preconditions: User has installed the Just Eat app and created an account.
+Main Scenario:
+1. User opens the Just Eat app.
+2. User enters personal information (age, weight, activity level).
+3. User enters allergies or dietary restrictions.
+4. System calculates macronutrient quotas.
+5. System generates a personalized meal plan.
 
-### Team Member 1: User Profile & Algorithm Configuration
+Extensions: User skips some health data → system generates a general nutrition plan.
+Special Requirements: User health data must be stored securely.
 
-**Use Case UC1: Configure Nutrition Algorithm**
-| **Use Case UC1: Configure Nutrition Algorithm** |
-|---|
-| **Primary Actor:** User |
-| **Stakeholders and interests:** User: Wants to customize the meal planning algorithm to meet specific health goals and preferences; System: Needs valid parameters to generate plans. |
-| **Preconditions** |
-| The user has launched the application (CLI or Mobile). |
-| **Success guarantee** |
-| The user's nutritional parameters (macronutrient quotas, allergies, dietary restrictions) are saved and persistently stored. The system uses these new values for subsequent meal planning. |
-| **Main success scenario** |
-| 1. User selects "Settings" or "Algorithm Configuration." <br> 2. System displays current nutritional quotas and restrictions. <br> 3. User inputs daily calorie limits and macronutrient quotas (carbs, proteins, fats). <br> 4. User selects dietary restrictions (e.g., Vegan, Keto) and inputs allergies (e.g., Peanuts, Shellfish). <br> 5. User selects "Save Configuration." <br> 6. System validates inputs and stores the profile. |
-| **Extensions** |
-| 3a. User inputs invalid data (e.g., negative calories): System prompts error and requests correction. <br> 4a. User selects a recurring period (e.g., Ramadan fasting): System adjusts time windows for meal planning. |
-| **Special requirements** |
-| Configuration must be synchronized between CLI and Mobile interfaces. |
-| **Technology and data variation list** |
-| Data Storage: Local encrypted storage (preferred for privacy). Input: CLI arguments or GUI forms. |
+Use Case 2
+ID: UC-02
+Title: Order Ingredients for Meal Plan
+Primary Actor: User
+Preconditions: User already has a generated meal plan.
+Main Scenario:
+1. User reviews their meal plan.
+2. User selects the option to order ingredients.
+3. System compiles a list of ingredients needed.
+4. System sends the order through the DoorDash or Kroger API.
+5. User receives confirmation of the order.
 
-**Use Case UC2: Input Health Checkup Data**
-| **Use Case UC2: Input Health Checkup Data** |
-|---|
-| **Primary Actor:** User |
-| **Stakeholders and interests:** User: Wants precise meal plans based on medical metrics; System: Needs biometric data to calculate accurate quotas. |
-| **Preconditions** |
-| User has physical or digital health checkup results available. |
-| **Success guarantee** |
-| Biometric data (e.g., blood glucose, cholesterol) is stored securely and linked to the algorithm for precision adjustments. |
-| **Main success scenario** |
-| 1. User navigates to "Health Data" section. <br> 2. System prompts for specific metrics (Glucose, Blood Pressure, BMI). <br> 3. User inputs data from recent checkup. <br> 4. User saves the data. <br> 5. System recalculates nutritional quotas based on the new health metrics. |
-| **Extensions** |
-| 3a. User inputs data outside safe physiological ranges: System issues a warning but allows saving (user discretion). |
-| **Special requirements** |
-| Data must be encrypted at rest. The app should ideally run locally to avoid cloud security risks regarding sensitive health data. |
-| **Technology and data variation list** |
-| Data: JSON or SQLite local storage. Input: Manual entry or photo OCR (future scope). |
+Extensions: Delivery service unavailable → system notifies user.
+Special Requirements: Orders should only include fresh ingredients by default.
 
-**Use Case UC3: Search Nutritional Information**
-| **Use Case UC3: Search Nutritional Information** |
-|---|
-| **Primary Actor:** User |
-| **Stakeholders and interests:** User: Wants to verify nutritional facts or research medical conditions; System: Aggregates reliable health data. |
-| **Preconditions** |
-| User has an active internet connection. |
-| **Success guarantee** |
-| User receives a list of relevant research papers or medical articles related to their query. |
-| **Main success scenario** |
-| 1. User selects "Information" or "Research" tab. <br> 2. User enters a query (e.g., "effects of fasting on glucose"). <br> 3. System queries PubMed and Google Scholar APIs. <br> 4. System displays a list of abstracts and links. <br> 5. User selects an article to read. |
-| **Extensions** |
-| 3a. No results found: System suggests related terms or generic WebMD/FamilyDoctor links. <br> 4a. User asks the AI Chatbot for analysis: System summarizes the research. |
-| **Special requirements** |
-| The interface must handle varying screen sizes (Mobile vs. Desktop). |
-| **Technology and data variation list** |
-| APIs: PubMed API, Google Scholar scraping (or API). Data: HTML/Text rendering. |
+Use Case 3
+ID: UC-03
+Title: Modify Meal Plan Within Nutrient Limits
+Primary Actor: User
+Preconditions: User has an existing meal plan.
+Main Scenario:
+1. User opens their meal plan.
+2. User selects a food item to remove.
+3. User chooses a replacement item.
+4. System checks if the replacement maintains macronutrient balance.
+5. System updates the meal plan.
 
-**Use Case UC4: Use AI Chatbot for Research**
-| **Use Case UC4: Use AI Chatbot for Research** |
-|---|
-| **Primary Actor:** User |
-| **Stakeholders and interests:** User: Wants a summary of complex medical research; System: Provides synthesized information. |
-| **Preconditions** |
-| User is in the Information section and has a specific medical query. |
-| **Success guarantee** |
-| User receives a synthesized summary of relevant research, similar to Perplexity AI. |
-| **Main success scenario** |
-| 1. User activates the Chatbot interface. <br> 2. User inputs a query regarding a rare condition. <br> 3. System aggregates data from linked medical sites. <br> 4. System generates a concise summary with citations. <br> 5. User reviews the summary. |
-| **Extensions** |
-| 3a. Query is ambiguous: System asks clarifying questions. |
-| **Special requirements** |
-| The chatbot must cite sources clearly. It is not a diagnostic tool but an information aggregator. |
-| **Technology and data variation list** |
-| Technology: LLM integration (local or API). Data: Text generation. |
+Extensions: Replacement exceeds nutrient limits → system rejects change.
+Special Requirements: System must display macronutrient values clearly.
 
----
+Use Case 4
+ID: UC-04
+Title: View Nutrition Information
+Primary Actor: User
+Preconditions: User is logged into the app.
+Main Scenario:
+1. User navigates to the nutrition information section.
+2. User searches for a nutrition or health topic.
+3. System retrieves information from trusted sources.
+4. System displays articles and research summaries.
 
-### Team Member 2: Meal Planning & Ordering
+Extensions: No results found → system suggests related topics.
+Special Requirements: Sources such as PubMed or WebMD should be referenced.
 
-**Use Case UC5: Generate Meal Plan**
-| **Use Case UC5: Generate Meal Plan** |
-|---|
-| **Primary Actor:** User |
-| **Stakeholders and interests:** User: Wants a daily/weekly meal schedule that meets nutritional quotas; System: Optimizes ingredients based on hard-coded algorithm. |
-| **Preconditions** |
-| User profile and nutritional quotas are configured (UC1). |
-| **Success guarantee** |
-| A list of fresh ingredients and recipes is generated that strictly adheres to the macronutrient quotas. |
-| **Main success scenario** |
-| 1. User requests a "New Meal Plan" for the upcoming week. <br> 2. System runs the hard-coded optimization algorithm using current quotas. <br> 3. System selects fresh ingredients from the available catalog (Kroger/DoorDash). <br> 4. System displays the meal plan (recipes and ingredient list). <br> 5. User reviews the plan. |
-| **Extensions** |
-| 2a. Algorithm cannot meet exact quotas with available fresh ingredients: System suggests the closest match and prompts user approval. |
-| **Special requirements** |
-| The algorithm must be transparent (non-black box), allowing users to view how quotas were met. |
-| **Technology and data variation list** |
-| Data: Ingredient database, Recipe database. Logic: Optimization script. |
+## Jungmin's - Use Cases
 
-**Use Case UC6: Order Ingredients via API**
-| **Use Case UC6: Order Ingredients via API** |
-|---|
-| **Primary Actor:** User / System |
-| **Stakeholders and interests:** User: Wants fresh ingredients delivered; System: Automates the ordering process via DoorDash/Kroger API. |
-| **Preconditions** |
-| A valid meal plan has been generated (UC5). User has valid API credentials for DoorDash or Kroger. |
-| **Success guarantee** |
-| An order is placed successfully with the delivery service, and ingredients are scheduled for delivery. |
-| **Main success scenario** |
-| 1. User selects "Order Now" for the generated meal plan. <br> 2. System maps internal ingredient list to external API SKUs (Kroger/DoorDash). <br> 3. System constructs the cart via API. <br> 4. System processes the payment via saved credentials. <br> 5. System confirms the order and provides a tracking number. |
-| **Extensions** |
-| 3a. An item is out of stock: System selects a fresh substitute with similar nutritional value. <br> 4a. Payment fails: System notifies user to update payment method. |
-| **Special requirements** |
-| The system must strictly order "fresh ingredients only" as per default settings. |
-| **Technology and data variation list** |
-| APIs: DoorDash API, Kroger Developer API. Data: JSON payloads for cart creation. |
+Use Case 5
+ID: UC-05
+Title: Navigate App via Mobile UI
+Primary Actor: User
+Stakeholders and interests:
+  User: wants an intuitive, responsive interface to manage their meal plan on the go without needing technical knowledge.
+  Developer: wants a UI that maps cleanly onto the shared backend so mobile and TUI stay in sync.
 
-**Use Case UC7: Modify Cart (Swap Ingredients)**
-| **Use Case UC7: Modify Cart (Swap Ingredients)** |
-|---|
-| **Primary Actor:** User |
-| **Stakeholders and interests:** User: Wants to replace an ingredient with a preference; System: Ensures nutritional integrity is maintained. |
-| **Preconditions** |
-| A meal plan is generated, and an order cart is pending (before final submission). |
-| **Success guarantee** |
-| The ingredient is swapped, and the total macronutrient profile remains within the defined quotas. |
-| **Main success scenario** |
-| 1. User selects an ingredient in the current plan to remove. <br> 2. User selects a replacement ingredient. <br> 3. System calculates the nutritional difference. <br> 4. System verifies the replacement fits within the remaining macronutrient quota. <br> 5. System updates the cart. |
-| **Extensions** |
-| 3a. Replacement exceeds quota: System rejects the swap and suggests a lower-calorie alternative. |
-| **Special requirements** |
-| Users cannot arbitrarily add items; they must replace items to maintain nutritional balance. |
-| **Technology and data variation list** |
-| Data: Nutritional lookup table. Logic: Quota validation check. |
+Preconditions:
+  User has installed the Just Eat mobile app and logged into their account.
 
-**Use Case UC8: Sync CLI and Mobile Interfaces**
-| **Use Case UC8: Sync CLI and Mobile Interfaces** |
-|---|
-| **Primary Actor:** System / Developer |
-| **Stakeholders and interests:** Developer: Wants consistent state across platforms; User: Wants to switch devices seamlessly. |
-| **Preconditions** |
-| Both CLI and Mobile app are installed/configured to access the same local data store or sync server. |
-| **Success guarantee** |
-| Changes made on one interface reflect immediately on the other. |
-| **Main success scenario** |
-| 1. User updates a setting on the Mobile App. <br> 2. Mobile app writes to the local database. <br> 3. CLI app reads the database on next execution. <br> 4. CLI displays the updated settings. |
-| **Extensions** |
-| 1a. Conflict detected (simultaneous edits): System prioritizes the latest timestamp. |
-| **Special requirements** |
-| The CLI must provide a TUI (Text User Interface) suitable for mobile terminals (e.g., Termux). |
-| **Technology and data variation list** |
-| Data: SQLite or JSON file sync. Interface: TUI (CLI) and GUI (Mobile). |
+Success guarantee:
+  User can access all core features (meal plan, nutrition info, order management, health profile) through the mobile interface without encountering layout or usability errors.
 
----
+Main success scenario:
+  1. User launches the app on their mobile device.
+  2. System displays a home dashboard showing today's meal plan and macronutrient summary.
+  3. User taps a navigation element to move between sections (meal plan, profile, nutrition info, order status).
+  4. System renders the selected section with appropriately scaled layouts for the mobile form factor.
+  5. User interacts with a feature (e.g., reviews a meal, checks macros).
+  6. System reflects any changes in real time and syncs state with the backend.
+
+Extensions:
+  3a. User is on a narrow screen (e.g., older phone) → system falls back to a simplified single-column layout.
+  6a. Sync fails due to connectivity loss → system caches changes locally and retries on reconnect, notifying the user.
+
+Special requirements:
+  UI must remain usable on common mobile screen sizes (360px width and above).
+  Touch targets must meet accessibility minimums.
+  The mobile UI and TUI must share the same backend and reflect the same state.
+
+Technology and data variation list:
+  iOS and Android must both be supported.
+  Push notifications are mobile-only and depend on OS-level notification permissions granted by the user.
+
+Use Case 6
+ID: UC-06
+Title: Manage Meal Plan via TUI
+
+Primary Actor: Developer / Power User
+
+Stakeholders and interests:
+  Developer: wants to test and operate the backend without a mobile device, and to integrate Just Eat with home automation or IoT pipelines via scripting.
+  Power user: wants a keyboard-driven, scriptable interface for their home setup (e.g., a Raspberry Pi display or Termux on Android).
+
+Preconditions:
+  User has the Just Eat CLI installed and has authenticated with their account credentials.
+
+Success guarantee:
+  User can view and interact with their meal plan, profile, and orders entirely through the terminal, with the session state synchronized with the mobile app.
+
+Main success scenario:
+  1. User launches the Just Eat TUI from the terminal (or Termux on mobile).
+  2. System renders a text-based interface appropriate for the detected terminal dimensions (desktop or narrow mobile form factor).
+  3. User navigates menus using keyboard input to access meal plan, macronutrient breakdown, health profile, or order management.
+  4. User performs an action (e.g., confirms today's meal plan for ordering).
+  5. System processes the action against the shared backend.
+  6. System updates the TUI display and syncs state so the mobile app reflects the change.
+
+Extensions:
+  2a. Terminal width is below a usable threshold → system switches to a simplified linear-menu layout suitable for Termux.
+  5a. Backend is unreachable → system displays a clear error and queues the action for retry.
+  6a. Developer invokes a specific command non-interactively (e.g., via a cron job or shell script for IoT automation) → system processes the command and exits with a machine-readable output.
+
+Special requirements:
+  TUI layout must account for both desktop terminal and narrow mobile terminal (Termux) form factors.
+  All TUI actions must go through the same backend API used by the mobile app to guarantee sync.
+  The TUI must be usable without a graphical environment.
+
+Technology and data variation list:
+  Terminal emulators vary; the TUI should avoid depending on features not universally supported (e.g., true color is optional, basic ANSI codes are required).
+  On IoT/home automation setups, the CLI may be invoked non-interactively via scripts; output should optionally support a plain-text or JSON mode for scripting.
+
+Use Case 7
+ID: UC-07
+Title: Search Academic Literature In-App
+Primary Actor: User
+Stakeholders and interests:
+  User: wants to look up nutrition and health research relevant to their condition without leaving the app or manually navigating external sites.
+  User with a rare or poorly documented condition: wants to find recent papers to inform their own dietary decisions.
+Preconditions:
+  User is logged in and has navigated to the Nutrition Information section.
+Success guarantee:
+  User receives a list of relevant results from PubMed and/or Google Scholar for their query, with enough information to decide which results to read further.
+Main success scenario:
+  1. User opens the Nutrition Information section.
+  2. User selects the academic search feature.
+  3. User types a search query (e.g., "magnesium deficiency type 2 diabetes").
+  4. System submits the query to the PubMed and/or Google Scholar APIs.
+  5. System displays a result list showing each article's title, authors, publication year, and a brief abstract excerpt.
+  6. User taps or selects a result.
+  7. System opens the article link in an in-app browser view or hands off to the device browser.
+
+Extensions:
+  4a. One API is unavailable → system retrieves results from the available source only and notes the partial result set to the user.
+  5a. No results are found → system suggests broadening the query or offers related search terms.
+  7a. Article is behind a paywall → system indicates access status and surfaces a link to the PubMed free full-text version where available.
+
+Special requirements:
+  Queries must be sent over HTTPS.
+  The feature must clearly attribute results to their source (PubMed or Google Scholar) so users know the provenance of what they are reading.
+
+Technology and data variation list:
+  PubMed access uses the NCBI E-utilities API (no authentication required for basic queries; API key recommended for higher rate limits).
+  Google Scholar does not have an official public API; integration may rely on a third-party library or a maintained scraping wrapper, which introduces a fragility risk that should be disclosed to the user.
+  
+Use Case 8
+ID: UC-08
+Title: Query AI Research Assistant
+Primary Actor: User
+Stakeholders and interests:
+  User: wants synthesized, sourced answers about nutrition or a specific health condition without manually reading through many papers.
+  User with an atypical medical condition: wants help aggregating sparse or conflicting research so they can have a more informed conversation with their doctor.
+Preconditions: 
+User is logged in and has navigated to the Nutrition Information section.
+Success guarantee: User receives a clearly sourced, synthesized response to their research question, with the underlying references listed so the answer can be verified.
+Main success scenario:
+  1. User opens the AI research assistant within the Nutrition Information section.
+  2. User types a natural-language question (e.g., "What does recent research say about omega-3 supplementation for ADHD in adults?").
+  3. System sends the query to the integrated AI chatbot backend, which retrieves relevant literature (via the same PubMed/Scholar integration from UC-07 or a connected web search).
+  4. System displays a synthesized response with inline citations linking to the source articles.
+  5. User follows up with a clarifying question.
+  6. System maintains conversational context and refines its response accordingly.
+  7. User taps a citation to view the source (handled as in UC-07, step 7).
+
+Extensions:
+  3a. No sufficiently relevant literature is found → system responds that it could not find strong evidence on the topic and suggests related, better-documented areas.
+  4a. The AI produces a response that conflicts with the user's algorithm settings → system appends a notice reminding the user that the chatbot provides research context only and does not override their nutrition plan without explicit user action.
+  6a. User asks the assistant to modify their meal plan directly → system declines and redirects the user to the meal plan modification flow (UC-03), reinforcing the separation between the transparent algorithm and the AI layer.
+
+Special requirements: 
+	The assistant must display citations for all non-trivial claims; responses without sourcing should be clearly labeled as general context rather than evidence-based conclusions. The feature must include a visible disclaimer that the assistant aggregates research and does not constitute medical advice, and that findings should be discussed with a qualified professional. Conversation history within a session should not be stored server-side without explicit user consent, given the sensitivity of health queries.
+	Technology and data variation list: The AI backend may call an external LLM API (e.g., a Perplexity-style or RAG-based system); latency may vary and the UI should indicate when a response is loading. Users with rare conditions may receive lower-quality responses if the underlying model has limited training data on their topic; the disclaimer should acknowledge this possibility.
+
+## Colin's 
+## Use Case 9
+ID: UC-09  
+Title: Set Dietary Preferences 
+Primary Actor: User  
+Stakeholders and Interests: The user wants meal recommendations that match their dietary preferences, while the system aims to generate appropriate meal plans based on those preferences.
+Preconditions: User is logged into the Just Eat app.
+Main Scenario:
+1. User opens the dietary preferences section.
+2. User selects preferred diet types (e.g., vegetarian, keto, vegan).
+3. User selects foods they like or dislike.
+4. System saves the dietary preferences.
+5. System uses the preferences when generating future meal plans.
+
+Extensions: User leaves preferences blank → system generates meal plans without preference filtering.
+Special Requirements: Dietary preferences should be editable at any time.
+## Use Case 10
+ID: UC-10  
+Title: Optimize Grocery Order for Budget  
+Primary Actor: User  
+Stakeholders and Interests: The user wants to minimize grocery costs while maintaining their nutrition plan, while the system aims to select affordable ingredient options.
+Preconditions: User has generated a grocery list.
+Main Scenario:
+1. User selects the option to optimize the grocery order for budget.
+2. System compares available product prices from the grocery provider.
+3. System selects lower-cost alternatives where possible.
+4. System updates the grocery list with optimized items.
+5. System displays the updated estimated total cost.
+
+Extensions: Cheaper alternative violates dietary restriction → system keeps the original ingredient.
+Special Requirements: System must ensure nutritional targets remain satisfied after optimization.
+## Use Case 11
+ID: UC-11  
+Title: Connect Grocery Delivery Provider  
+Primary Actor: User  
+Stakeholders and Interests: The user wants to connect their grocery delivery service to the app, while the system aims to securely access provider APIs for ordering.
+Preconditions: User is logged into the app.
+
+Main Scenario:
+1. User opens the grocery provider settings.
+2. User selects a provider such as DoorDash or Kroger.
+3. System redirects the user to the provider authentication page.
+4. User grants permission to connect the account.
+5. System stores the connection and confirms successful linking.
+
+Extensions: User cancels authentication → system returns to the provider selection screen.
+Special Requirements: Authentication tokens must be stored securely.
+## Use Case 12
+
+ID: UC-12  
+Title: Receive Meal Plan Notifications 
+Primary Actor: User  
+Stakeholders and Interests: The user wants reminders and updates related to their meal plan, while the system aims to keep users engaged and informed.
+Preconditions: User has an active meal plan.
+Main Scenario:
+1. System sends notifications for upcoming meals or grocery orders.
+2. User receives the notification on their device.
+3. User opens the notification to view details in the app.
+4. System displays the relevant meal plan or order information.
+
+Extensions: User disables notifications → system stops sending alerts.
+Special Requirements: Notifications should be configurable in user settings.
+
+## Zia's
+## Use Case 13
+
+ID: UC-13
+Title: Create User Account
+Primary Actor: User
+Stakeholders and interests: The user wants to create an account to store their nutrition preferences and meal plans, while the system aims to securely manage user accounts.
+Preconditions: User has installed the Just Eat app.
+
+Main Scenario:
+1. User opens the Just Eat app.
+2. User selects the option to create an account.
+3. User enters required information such as email and password.
+4. System validates the information.
+5. System creates a new user account.
+6. System logs the user into the app.
+
+Extensions: Email already exists → system notifies the user and asks them to sign in instead.
+Special Requirements: User passwords must be encrypted before being stored.
+
+## Use Case 14
+
+ID: UC-14
+Title: Generate Grocery List from Meal Plan
+Primary Actor: User
+Stakeholders and interests: The user wants a clear list of ingredients needed for their meals, while the system aims to accurately organize ingredients from the meal plan.
+Preconditions: User has an existing meal plan.
+
+Main Scenario:
+1. User selects the option to generate a grocery list.
+2. System collects ingredients from all meals in the meal plan.
+3. System combines duplicate ingredients and calculates quantities.
+4. System generates a grocery list.
+5. System displays the grocery list to the user.
+
+Extensions: Ingredient quantity missing → system estimates the required quantity.
+Special Requirements: Ingredients should be grouped into categories such as produce, dairy, and grains.
+
+## Use Case 15
+
+ID: UC-15
+Title: Track Grocery Delivery
+Primary Actor: User
+Stakeholders and interests: The user wants to track the status of their grocery order, while the system aims to provide accurate delivery updates from the grocery provider.
+Preconditions: User has placed a grocery order.
+
+Main Scenario:
+1. User opens the order tracking section.
+2. System retrieves delivery information from the grocery provider API.
+3. System displays the current order status.
+4. System shows the estimated delivery time.
+
+Extensions: Delivery information unavailable → system displays the last known order status.
+Special Requirements: Delivery status should update automatically when new information becomes available.
+## Use Case 16
+ID: UC-16
+Title: Rate and Review Meals
+Primary Actor: User
+Stakeholders and interests: The user wants to provide feedback on meals they tried, while the system aims to improve future meal recommendations.
+Preconditions: User has generated or completed a meal plan.
+
+Main Scenario:
+1. User opens a completed meal in the meal plan.
+2. User selects the option to rate the meal.
+3. User provides a rating and optional feedback.
+4. System stores the rating information.
+5. System uses the feedback to improve future recommendations.
+
+Extensions: User skips feedback → system saves only the rating.
+Special Requirements: Ratings should influence future meal suggestions generated by the system.
+
+## Dvillago's
+
 
 ## 2. Use Case Diagrams
 

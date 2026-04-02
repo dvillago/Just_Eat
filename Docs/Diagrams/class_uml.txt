@@ -1,0 +1,468 @@
+
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam linetype ortho
+hide empty members
+
+' ==============================================================
+'  ENUMERATIONS
+' ==============================================================
+
+enum ActivityLevel {
+  SEDENTARY
+  LIGHTLY_ACTIVE
+  MODERATELY_ACTIVE
+  VERY_ACTIVE
+}
+
+enum DietType {
+  NONE
+  VEGETARIAN
+  VEGAN
+  HALAL
+  KOSHER
+  GLUTEN_FREE
+  KETO
+  PALEO
+}
+
+enum MealCategory {
+  FULL_MEAL
+  BREAKFAST_LIGHT_MEAL
+  SNACK
+}
+
+enum IngredientCategory {
+  PRODUCE
+  DAIRY
+  GRAINS
+  PROTEINS
+  FROZEN
+  PANTRY
+}
+
+enum OrderStatus {
+  ORDERED
+  CONFIRMED
+  PREPARING
+  PICKED_UP
+  IN_TRANSIT
+  DELIVERED
+  FAILED
+  CANCELLED
+}
+
+enum NotificationType {
+  MEAL_REMINDER
+  ORDER_UPDATE
+  PREP_REMINDER
+  REPORT_READY
+}
+
+enum ExportFormat {
+  PDF
+  CSV
+  SHAREABLE_LINK
+}
+
+' ==============================================================
+'  USER & PROFILE CLUSTER
+' ==============================================================
+
+class User {
+  - id           : UUID
+  - email        : String
+  - passwordHash : String
+  - createdAt    : DateTime
+  --
+  + register(email: String, password: String) : void
+  + login(email: String, password: String)    : Boolean
+  + updateEmail(newEmail: String)             : void
+  + deleteAccount()                           : void
+}
+
+class UserProfile {
+  - userId        : UUID
+  - age           : int
+  - weightKg      : float
+  - heightCm      : float
+  - activityLevel : ActivityLevel
+  - updatedAt     : DateTime
+  --
+  + update(age: int, weightKg: float,\n  heightCm: float, activity: ActivityLevel) : void
+}
+
+class HealthData {
+  - lastCheckupDate         : Date
+  - bloodGlucoseMgDl        : float
+  - cholesterolMgDl         : float
+  - bloodPressureSystolic   : int
+  - bloodPressureDiastolic  : int
+  - otherMarkers            : Map<String, Float>
+  --
+  + update(markers: Map<String, Float>) : void
+}
+
+' A "special period" is a fixed, recurring calendar period (e.g. Ramadan)
+' during which the user's dietary rules and macronutrient adjustments differ
+' from their baseline preferences. The nutrition plan generation algorithm
+' detects whether such a period is currently active and applies its
+' adjustments automatically.
+class DietaryPreference {
+  - dietTypes            : List<DietType>
+  - allergies            : List<String>
+  - likedFoods           : List<String>
+  - dislikedFoods        : List<String>
+  - specialPeriodName    : String
+  - specialPeriodStart   : Date
+  - specialPeriodEnd     : Date
+  - specialAdjustments   : Map<String, String>
+  --
+  + addAllergy(allergy: String)                     : void
+  + removeAllergy(allergy: String)                  : void
+  + updateDietTypes(types: List<DietType>)          : void
+  + addFoodPreference(food: String, liked: Boolean) : void
+  + isSpecialPeriodActive(date: Date)               : Boolean
+  + hasConflicts()                                  : Boolean
+}
+
+class MacronutrientQuota {
+  - caloriesKcal : float
+  - proteinG     : float
+  - carbsG       : float
+  - fatG         : float
+  - fiberG       : float
+  --
+  + calculate(profile: UserProfile,\n  health: HealthData)          : void
+  + isWithinQuota(actual: MacronutrientQuota) : Boolean
+  + add(other: MacronutrientQuota)            : MacronutrientQuota
+}
+
+' ==============================================================
+'  NUTRITION PLAN & MEAL CLUSTER
+' ==============================================================
+
+class NutritionPlan {
+  - id        : UUID
+  - userId    : UUID
+  - startDate : Date
+  - endDate   : Date
+  - createdAt : DateTime
+  - isActive  : Boolean
+  --
+  + generate(profile: UserProfile,\n  quota: MacronutrientQuota,\n  schedule: MealPrepSchedule) : void
+  + getMealsForDay(date: Date)     : List<Meal>
+  + getTotalMacros()               : MacronutrientQuota
+  + activate()                     : void
+  + deactivate()                   : void
+  + exportTo(format: ExportFormat,\n  password: String)             : byte[]
+  + generateShareLink(expiryDays: int,\n  password: String)         : ShareableLink
+}
+
+class Meal {
+  - id             : UUID
+  - name           : String
+  - category       : MealCategory
+  - prepTimeMinutes : int
+  - servings       : int
+  - isFavorite     : Boolean
+  - scheduledDate  : Date
+  --
+  + getMacros()                          : MacronutrientQuota
+  + toggleFavorite()                     : void
+  + replaceIngredient(old: Ingredient,\n  replacement: Ingredient)   : Boolean
+  + getSuggestedAlternatives(ingredient: Ingredient) : List<Ingredient>
+}
+
+class MealIngredient {
+  - quantityAmount : float
+  - unit           : String
+  --
+  + getScaledMacros() : MacronutrientQuota
+}
+
+class MealPrepSchedule {
+  - id                    : UUID
+  - recurringPreferences  : Map<DayOfWeek, String>
+  - prepDays              : List<DayOfWeek>
+  - cookFrequencyPerWeek  : int
+  - servingsPerSession    : int
+  - quickMealsOnly        : Boolean
+  --
+  + addRecurringPreference(day: DayOfWeek,\n  preference: String)   : void
+  + removeRecurringPreference(day: DayOfWeek) : void
+  + updatePrepDays(days: List<DayOfWeek>)     : void
+}
+
+class Rating {
+  - id          : UUID
+  - userId      : UUID
+  - stars       : int
+  - feedbackText : String
+  - ratedAt     : DateTime
+  --
+  + submit(stars: int, feedback: String) : void
+  + edit(stars: int, feedback: String)   : void
+}
+
+class ShareableLink {
+  - token               : String
+  - expiresAt           : DateTime
+  - isPasswordProtected : Boolean
+  - expiryDays          : int
+  --
+  + isExpired()   : Boolean
+  + invalidate()  : void
+}
+
+' ==============================================================
+'  INGREDIENT CLUSTER
+' ==============================================================
+
+class Ingredient {
+  - id            : UUID
+  - name          : String
+  - category      : IngredientCategory
+  - defaultUnit   : String
+  - macrosPer100g : MacronutrientQuota
+  - shelfLifeDays : int
+  - isFresh       : Boolean
+  --
+  + getNutritionalValue(quantityG: float) : MacronutrientQuota
+  + isCompatibleWith(pref: DietaryPreference) : Boolean
+}
+
+' ==============================================================
+'  GROCERY CLUSTER
+' ==============================================================
+
+class GroceryList {
+  - id                 : UUID
+  - planId             : UUID
+  - generatedAt        : DateTime
+  - estimatedTotalCost : float
+  --
+  + generate(plan: NutritionPlan)  : void
+  + deduplicateIngredients()       : void
+  + optimizeForBudget(provider: GroceryProvider) : void
+  + exportToPDF()                  : byte[]
+  + exportToPlainText()            : String
+}
+
+class GroceryListItem {
+  - quantityAmount  : float
+  - unit            : String
+  - estimatedPrice  : float
+  --
+  + updateQuantity(amount: float)               : void
+  + replaceWith(newIngredient: Ingredient)       : void
+}
+
+class GroceryOrder {
+  - id                    : UUID
+  - status                : OrderStatus
+  - placedAt              : DateTime
+  - estimatedDeliveryTime : DateTime
+  - deliveryAddress       : String
+  --
+  + place()               : void
+  + cancel()              : void
+  + retry()               : void
+  + getTrackingInfo()     : TrackingInfo
+}
+
+class TrackingInfo {
+  - currentStatus       : OrderStatus
+  - driverLocationLat   : float
+  - driverLocationLng   : float
+  - lastUpdatedAt       : DateTime
+  - estimatedArrival    : DateTime
+  --
+  + refresh(provider: GroceryProvider) : void
+}
+
+abstract class GroceryProvider {
+  # id         : UUID
+  # name       : String
+  # baseApiUrl : String
+  --
+  + {abstract} authenticate(userId: UUID)           : AuthToken
+  + {abstract} submitOrder(list: GroceryList)       : GroceryOrder
+  + {abstract} getOrderStatus(orderId: UUID)        : OrderStatus
+  + {abstract} getProductPrice(ingredientId: UUID)  : float
+  + {abstract} findAlternative(ing: Ingredient)     : Ingredient
+}
+
+class DoorDashProvider {
+  - clientId     : String
+  - clientSecret : String
+  --
+  + authenticate(userId: UUID)          : AuthToken
+  + submitOrder(list: GroceryList)      : GroceryOrder
+  + getOrderStatus(orderId: UUID)       : OrderStatus
+  + getProductPrice(ingredientId: UUID) : float
+  + findAlternative(ing: Ingredient)    : Ingredient
+}
+
+class KrogerProvider {
+  - clientId       : String
+  - clientSecret   : String
+  - storeLocationId : String
+  --
+  + authenticate(userId: UUID)          : AuthToken
+  + submitOrder(list: GroceryList)      : GroceryOrder
+  + getOrderStatus(orderId: UUID)       : OrderStatus
+  + getProductPrice(ingredientId: UUID) : float
+  + findAlternative(ing: Ingredient)    : Ingredient
+}
+
+class AuthToken {
+  - accessToken  : String
+  - refreshToken : String
+  - expiresAt    : DateTime
+  --
+  + isExpired()   : Boolean
+  + refresh()     : AuthToken
+}
+
+' ==============================================================
+'  NUTRITION INFO & RESEARCH CLUSTER
+' ==============================================================
+
+class NutritionInfoSection {
+  - enabledSources : List<String>
+  --
+  + search(query: String)         : List<NutritionInfoResult>
+  + searchAcademic(query: String) : List<AcademicSearchResult>
+}
+
+class NutritionInfoResult {
+  - title            : String
+  - source           : String
+  - url              : String
+  - summary          : String
+  - isPaywalled      : Boolean
+  - freeFullTextUrl  : String
+  --
+  + open() : void
+}
+
+class AcademicSearchResult {
+  - title           : String
+  - authors         : List<String>
+  - publicationYear : int
+  - abstractText    : String
+  - sourceApi       : String
+  - articleUrl      : String
+  - isOpenAccess    : Boolean
+  --
+  + open() : void
+}
+
+class AIResearchAssistant {
+  - conversationHistory : List<Message>
+  - consentGiven        : Boolean
+  --
+  + query(question: String) : AssistantResponse
+  + clearHistory()          : void
+}
+
+class Message {
+  - role      : String
+  - content   : String
+  - timestamp : DateTime
+}
+
+class AssistantResponse {
+  - responseText : String
+  - disclaimer   : String
+  - isSourced    : Boolean
+  --
+  + getCitationLinks() : List<String>
+}
+
+' ==============================================================
+'  NOTIFICATIONS & REPORTS CLUSTER
+' ==============================================================
+
+class Notification {
+  - id              : UUID
+  - type            : NotificationType
+  - title           : String
+  - body            : String
+  - scheduledAt     : DateTime
+  - isSent          : Boolean
+  - timingMinutes   : int
+  - frequencyPerDay : int
+  --
+  + send()   : void
+  + cancel() : void
+}
+
+class Report {
+  - id                    : UUID
+  - startDate             : Date
+  - endDate               : Date
+  - generatedAt           : DateTime
+  - avgDailyCaloriesKcal  : float
+  - macroAdherencePct     : float
+  --
+  + generate(startDate: Date, endDate: Date) : void
+  + exportToPDF()                            : byte[]
+  + getWeekOverWeekTrend()                   : Map<Date, Float>
+}
+
+' ==============================================================
+'  RELATIONSHIPS
+' ==============================================================
+
+' --- User & Profile ---
+User           "1" *--  "1"    UserProfile        : owns >
+User           "1" *--  "0..*" NutritionPlan      : owns >
+User           "1" *--  "0..*" Rating             : submits >
+User           "1" *--  "0..*" Report             : requests >
+User           "1" *--  "0..*" Notification       : receives >
+User           "1" *--  "0..1" MealPrepSchedule   : defines >
+
+' --- UserProfile internals ---
+UserProfile    "1" *--  "1"    MacronutrientQuota : has >
+UserProfile    "1" *--  "1"    DietaryPreference  : has >
+UserProfile    "1" *--  "0..1" HealthData         : stores >
+
+MacronutrientQuota ..> UserProfile : <<uses>>
+MacronutrientQuota ..> HealthData  : <<uses>>
+
+' --- Meal Plan ---
+NutritionPlan  "1" *--  "1..*" Meal               : contains >
+NutritionPlan  "1" --o  "0..1" GroceryList        : generates >
+NutritionPlan  "1" --   "0..*" ShareableLink      : produces >
+NutritionPlan      ..>          MealPrepSchedule   : <<constrained by>>
+
+' --- Meal & Ingredient (via junction) ---
+Meal           "1" *--  "1..*" MealIngredient     : composed of >
+MealIngredient "*" -->  "1"    Ingredient         : references >
+Meal           "1" *--  "0..1" Rating             : rated via >
+
+' --- Grocery ---
+GroceryList    "1" *--  "1..*" GroceryListItem    : contains >
+GroceryListItem "*" -->  "1"   Ingredient         : references >
+GroceryList    "1" -->  "0..1" GroceryOrder       : leads to >
+GroceryOrder   "*" -->  "1"    GroceryProvider    : placed via >
+GroceryOrder   "1" *--  "1"    TrackingInfo       : tracked by >
+GroceryProvider "1" *-- "1"    AuthToken          : secured by >
+
+' --- Provider Inheritance ---
+GroceryProvider <|-- DoorDashProvider
+GroceryProvider <|-- KrogerProvider
+
+' --- User ↔ GroceryProvider (many-to-many: a user can connect multiple providers) ---
+User           "*" o--  "0..*" GroceryProvider    : connects to >
+
+' --- Nutrition Info & Research ---
+NutritionInfoSection "1" --> "0..*" NutritionInfoResult    : returns >
+NutritionInfoSection "1" --> "0..*" AcademicSearchResult   : returns >
+AIResearchAssistant  "1" *-- "0..*" Message                : history >
+AIResearchAssistant  "1" --> "0..*" AssistantResponse      : produces >
+AssistantResponse    "*" o-- "0..*" AcademicSearchResult   : cites >
+@enduml

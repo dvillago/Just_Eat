@@ -1,0 +1,302 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1600" font-family="Arial, sans-serif" font-size="12" background="#ffffff">
+  <rect width="1400" height="1600" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a1a">Database Tables — Part 2: Grocery, Providers &amp; Research</text>
+
+  <!-- arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arrl" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto">
+      <path d="M8,0 L8,6 L0,3 z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- GroceryLists -->
+  <!-- ═══════════════════════════════ -->
+  <g id="GroceryLists">
+    <rect x="40" y="70" width="230" height="130" rx="6" fill="#e1f5ee" stroke="#0f6e56" stroke-width="1.5"/>
+    <rect x="40" y="70" width="230" height="28" rx="6" fill="#0f6e56"/>
+    <rect x="40" y="92" width="230" height="6" fill="#0f6e56"/>
+    <text x="155" y="89" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">GroceryLists</text>
+    <text x="52" y="115" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="80" y="115" fill="#1a1a1a">id : uuid</text>
+    <text x="52" y="132" fill="#a32d2d" font-weight="bold">FK</text>
+    <text x="80" y="132" fill="#1a1a1a">plan_id : uuid</text>
+    <text x="52" y="149" fill="#1a1a1a" font-size="11">     generated_at : datetime</text>
+    <text x="52" y="166" fill="#1a1a1a" font-size="11">     estimated_total_cost : float</text>
+    <line x1="52" y1="117" x2="265" y2="117" stroke="#0f6e56" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- GroceryListItems (junction) -->
+  <!-- ═══════════════════════════════ -->
+  <g id="GroceryListItems">
+    <rect x="40" y="250" width="230" height="130" rx="6" fill="#faeeda" stroke="#854f0b" stroke-width="1.5"/>
+    <rect x="40" y="250" width="230" height="28" rx="6" fill="#854f0b"/>
+    <rect x="40" y="272" width="230" height="6" fill="#854f0b"/>
+    <text x="155" y="269" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">GroceryListItems</text>
+    <text x="52" y="295" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="100" y="295" fill="#1a1a1a">grocery_list_id : uuid</text>
+    <text x="52" y="312" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="100" y="312" fill="#1a1a1a">ingredient_id : uuid</text>
+    <text x="52" y="329" fill="#1a1a1a" font-size="11">     quantity_amount : float</text>
+    <text x="52" y="346" fill="#1a1a1a" font-size="11">     unit : string</text>
+    <text x="52" y="363" fill="#1a1a1a" font-size="11">     estimated_price : float</text>
+    <line x1="52" y1="297" x2="265" y2="297" stroke="#854f0b" stroke-width="0.5" stroke-dasharray="2,2"/>
+    <line x1="52" y1="314" x2="265" y2="314" stroke="#854f0b" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- Ingredients (shared ref) -->
+  <!-- ═══════════════════════════════ -->
+  <g id="Ingredients">
+    <rect x="40" y="435" width="230" height="215" rx="6" fill="#e1f5ee" stroke="#0f6e56" stroke-width="1.5"/>
+    <rect x="40" y="435" width="230" height="28" rx="6" fill="#0f6e56"/>
+    <rect x="40" y="457" width="230" height="6" fill="#0f6e56"/>
+    <text x="155" y="454" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">Ingredients</text>
+    <text x="52" y="480" fill="#1a1a1a" font-size="10" font-style="italic">(shared with Part 1)</text>
+    <text x="52" y="497" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="80" y="497" fill="#1a1a1a">id : uuid</text>
+    <text x="52" y="514" fill="#1a1a1a" font-size="11">     name : string</text>
+    <text x="52" y="531" fill="#1a1a1a" font-size="11">     category : string</text>
+    <text x="52" y="548" fill="#1a1a1a" font-size="11">     default_unit : string</text>
+    <text x="52" y="565" fill="#1a1a1a" font-size="11">     calories_per_100g : float</text>
+    <text x="52" y="582" fill="#1a1a1a" font-size="11">     protein_per_100g : float</text>
+    <text x="52" y="599" fill="#1a1a1a" font-size="11">     carbs_per_100g : float</text>
+    <text x="52" y="616" fill="#1a1a1a" font-size="11">     fat_per_100g : float</text>
+    <text x="52" y="633" fill="#1a1a1a" font-size="11">     shelf_life_days : int</text>
+    <text x="52" y="650" fill="#1a1a1a" font-size="11">     is_fresh : boolean</text>
+    <line x1="52" y1="499" x2="265" y2="499" stroke="#0f6e56" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- GroceryOrders -->
+  <!-- ═══════════════════════════════ -->
+  <g id="GroceryOrders">
+    <rect x="380" y="70" width="240" height="165" rx="6" fill="#e1f5ee" stroke="#0f6e56" stroke-width="1.5"/>
+    <rect x="380" y="70" width="240" height="28" rx="6" fill="#0f6e56"/>
+    <rect x="380" y="92" width="240" height="6" fill="#0f6e56"/>
+    <text x="500" y="89" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">GroceryOrders</text>
+    <text x="392" y="115" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="420" y="115" fill="#1a1a1a">id : uuid</text>
+    <text x="392" y="132" fill="#a32d2d" font-weight="bold">FK</text>
+    <text x="420" y="132" fill="#1a1a1a">grocery_list_id : uuid</text>
+    <text x="392" y="149" fill="#a32d2d" font-weight="bold">FK</text>
+    <text x="420" y="149" fill="#1a1a1a">provider_id : uuid</text>
+    <text x="392" y="166" fill="#1a1a1a" font-size="11">     status : string</text>
+    <text x="392" y="183" fill="#1a1a1a" font-size="11">     placed_at : datetime</text>
+    <text x="392" y="200" fill="#1a1a1a" font-size="11">     estimated_delivery_time : datetime</text>
+    <text x="392" y="217" fill="#1a1a1a" font-size="11">     delivery_address : string</text>
+    <line x1="392" y1="117" x2="615" y2="117" stroke="#0f6e56" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- TrackingInfo -->
+  <!-- ═══════════════════════════════ -->
+  <g id="TrackingInfo">
+    <rect x="380" y="285" width="240" height="165" rx="6" fill="#e1f5ee" stroke="#0f6e56" stroke-width="1.5"/>
+    <rect x="380" y="285" width="240" height="28" rx="6" fill="#0f6e56"/>
+    <rect x="380" y="307" width="240" height="6" fill="#0f6e56"/>
+    <text x="500" y="304" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">TrackingInfo</text>
+    <text x="392" y="330" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="440" y="330" fill="#1a1a1a">order_id : uuid</text>
+    <text x="392" y="347" fill="#1a1a1a" font-size="11">     current_status : string</text>
+    <text x="392" y="364" fill="#1a1a1a" font-size="11">     driver_lat : float</text>
+    <text x="392" y="381" fill="#1a1a1a" font-size="11">     driver_lng : float</text>
+    <text x="392" y="398" fill="#1a1a1a" font-size="11">     last_updated_at : datetime</text>
+    <text x="392" y="415" fill="#1a1a1a" font-size="11">     estimated_arrival : datetime</text>
+    <line x1="392" y1="332" x2="615" y2="332" stroke="#0f6e56" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- GroceryProviders -->
+  <!-- ═══════════════════════════════ -->
+  <g id="GroceryProviders">
+    <rect x="750" y="70" width="240" height="182" rx="6" fill="#e6f1fb" stroke="#185fa5" stroke-width="1.5"/>
+    <rect x="750" y="70" width="240" height="28" rx="6" fill="#185fa5"/>
+    <rect x="750" y="92" width="240" height="6" fill="#185fa5"/>
+    <text x="870" y="89" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">GroceryProviders</text>
+    <text x="762" y="115" fill="#1a1a1a" font-size="10" font-style="italic">(DoorDash, Kroger via provider_type)</text>
+    <text x="762" y="132" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="790" y="132" fill="#1a1a1a">id : uuid</text>
+    <text x="762" y="149" fill="#1a1a1a" font-size="11">     name : string</text>
+    <text x="762" y="166" fill="#1a1a1a" font-size="11">     base_api_url : string</text>
+    <text x="762" y="183" fill="#1a1a1a" font-size="11">     client_id : string</text>
+    <text x="762" y="200" fill="#1a1a1a" font-size="11">     client_secret : string</text>
+    <text x="762" y="217" fill="#1a1a1a" font-size="11">     provider_type : string</text>
+    <text x="762" y="234" fill="#1a1a1a" font-size="11">     store_location_id : string</text>
+    <line x1="762" y1="134" x2="985" y2="134" stroke="#185fa5" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- UserGroceryProviders (junction) -->
+  <!-- ═══════════════════════════════ -->
+  <g id="UserGroceryProviders">
+    <rect x="750" y="300" width="240" height="98" rx="6" fill="#faeeda" stroke="#854f0b" stroke-width="1.5"/>
+    <rect x="750" y="300" width="240" height="28" rx="6" fill="#854f0b"/>
+    <rect x="750" y="322" width="240" height="6" fill="#854f0b"/>
+    <text x="870" y="319" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">UserGroceryProviders</text>
+    <text x="762" y="345" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="810" y="345" fill="#1a1a1a">user_id : uuid</text>
+    <text x="762" y="362" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="810" y="362" fill="#1a1a1a">provider_id : uuid</text>
+    <line x1="762" y1="347" x2="985" y2="347" stroke="#854f0b" stroke-width="0.5" stroke-dasharray="2,2"/>
+    <line x1="762" y1="364" x2="985" y2="364" stroke="#854f0b" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- AuthTokens -->
+  <!-- ═══════════════════════════════ -->
+  <g id="AuthTokens">
+    <rect x="750" y="450" width="240" height="148" rx="6" fill="#e6f1fb" stroke="#185fa5" stroke-width="1.5"/>
+    <rect x="750" y="450" width="240" height="28" rx="6" fill="#185fa5"/>
+    <rect x="750" y="472" width="240" height="6" fill="#185fa5"/>
+    <text x="870" y="469" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">AuthTokens</text>
+    <text x="762" y="495" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="790" y="495" fill="#1a1a1a">id : uuid</text>
+    <text x="762" y="512" fill="#a32d2d" font-weight="bold">FK</text>
+    <text x="790" y="512" fill="#1a1a1a">provider_id : uuid</text>
+    <text x="762" y="529" fill="#a32d2d" font-weight="bold">FK</text>
+    <text x="790" y="529" fill="#1a1a1a">user_id : uuid</text>
+    <text x="762" y="546" fill="#1a1a1a" font-size="11">     access_token : string</text>
+    <text x="762" y="563" fill="#1a1a1a" font-size="11">     refresh_token : string</text>
+    <text x="762" y="580" fill="#1a1a1a" font-size="11">     expires_at : datetime</text>
+    <line x1="762" y1="497" x2="985" y2="497" stroke="#185fa5" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- NutritionInfoResults -->
+  <!-- ═══════════════════════════════ -->
+  <g id="NutritionInfoResults">
+    <rect x="40" y="800" width="260" height="165" rx="6" fill="#fbeaf0" stroke="#993556" stroke-width="1.5"/>
+    <rect x="40" y="800" width="260" height="28" rx="6" fill="#993556"/>
+    <rect x="40" y="822" width="260" height="6" fill="#993556"/>
+    <text x="170" y="819" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">NutritionInfoResults</text>
+    <text x="52" y="845" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="80" y="845" fill="#1a1a1a">id : uuid</text>
+    <text x="52" y="862" fill="#1a1a1a" font-size="11">     title : string</text>
+    <text x="52" y="879" fill="#1a1a1a" font-size="11">     source : string</text>
+    <text x="52" y="896" fill="#1a1a1a" font-size="11">     url : string</text>
+    <text x="52" y="913" fill="#1a1a1a" font-size="11">     summary : string</text>
+    <text x="52" y="930" fill="#1a1a1a" font-size="11">     is_paywalled : boolean</text>
+    <text x="52" y="947" fill="#1a1a1a" font-size="11">     free_full_text_url : string</text>
+    <line x1="52" y1="847" x2="295" y2="847" stroke="#993556" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- AcademicSearchResults -->
+  <!-- ═══════════════════════════════ -->
+  <g id="AcademicSearchResults">
+    <rect x="380" y="800" width="260" height="182" rx="6" fill="#fbeaf0" stroke="#993556" stroke-width="1.5"/>
+    <rect x="380" y="800" width="260" height="28" rx="6" fill="#993556"/>
+    <rect x="380" y="822" width="260" height="6" fill="#993556"/>
+    <text x="510" y="819" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">AcademicSearchResults</text>
+    <text x="392" y="845" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="420" y="845" fill="#1a1a1a">id : uuid</text>
+    <text x="392" y="862" fill="#1a1a1a" font-size="11">     title : string</text>
+    <text x="392" y="879" fill="#1a1a1a" font-size="11">     authors : string</text>
+    <text x="392" y="896" fill="#1a1a1a" font-size="11">     publication_year : int</text>
+    <text x="392" y="913" fill="#1a1a1a" font-size="11">     abstract_text : string</text>
+    <text x="392" y="930" fill="#1a1a1a" font-size="11">     source_api : string</text>
+    <text x="392" y="947" fill="#1a1a1a" font-size="11">     article_url : string</text>
+    <text x="392" y="964" fill="#1a1a1a" font-size="11">     is_open_access : boolean</text>
+    <line x1="392" y1="847" x2="635" y2="847" stroke="#993556" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- AssistantResponses -->
+  <!-- ═══════════════════════════════ -->
+  <g id="AssistantResponses">
+    <rect x="750" y="800" width="240" height="148" rx="6" fill="#fbeaf0" stroke="#993556" stroke-width="1.5"/>
+    <rect x="750" y="800" width="240" height="28" rx="6" fill="#993556"/>
+    <rect x="750" y="822" width="240" height="6" fill="#993556"/>
+    <text x="870" y="819" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">AssistantResponses</text>
+    <text x="762" y="845" fill="#0c447c" font-weight="bold">PK</text>
+    <text x="790" y="845" fill="#1a1a1a">id : uuid</text>
+    <text x="762" y="862" fill="#1a1a1a" font-size="11">     response_text : string</text>
+    <text x="762" y="879" fill="#1a1a1a" font-size="11">     disclaimer : string</text>
+    <text x="762" y="896" fill="#1a1a1a" font-size="11">     is_sourced : boolean</text>
+    <text x="762" y="913" fill="#1a1a1a" font-size="11">     created_at : datetime</text>
+    <line x1="762" y1="847" x2="985" y2="847" stroke="#993556" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- ResponseCitations (junction) -->
+  <!-- ═══════════════════════════════ -->
+  <g id="ResponseCitations">
+    <rect x="750" y="1010" width="240" height="98" rx="6" fill="#faeeda" stroke="#854f0b" stroke-width="1.5"/>
+    <rect x="750" y="1010" width="240" height="28" rx="6" fill="#854f0b"/>
+    <rect x="750" y="1032" width="240" height="6" fill="#854f0b"/>
+    <text x="870" y="1029" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="13">ResponseCitations</text>
+    <text x="762" y="1055" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="810" y="1055" fill="#1a1a1a">response_id : uuid</text>
+    <text x="762" y="1072" fill="#0c447c" font-weight="bold">PK/FK</text>
+    <text x="810" y="1072" fill="#1a1a1a">academic_result_id : uuid</text>
+    <line x1="762" y1="1057" x2="985" y2="1057" stroke="#854f0b" stroke-width="0.5" stroke-dasharray="2,2"/>
+    <line x1="762" y1="1074" x2="985" y2="1074" stroke="#854f0b" stroke-width="0.5" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- ═══════════ RELATIONSHIPS ═══════════ -->
+
+  <!-- GroceryLists → GroceryListItems -->
+  <line x1="155" y1="200" x2="155" y2="250" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="163" y="230" font-size="10" fill="#555">1:1+</text>
+
+  <!-- GroceryListItems → Ingredients -->
+  <line x1="155" y1="380" x2="155" y2="435" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="163" y="412" font-size="10" fill="#555">*:1</text>
+
+  <!-- GroceryLists → GroceryOrders -->
+  <line x1="270" y1="135" x2="380" y2="135" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="300" y="128" font-size="10" fill="#555">1:0..1</text>
+
+  <!-- GroceryOrders → TrackingInfo -->
+  <line x1="500" y1="235" x2="500" y2="285" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="508" y="265" font-size="10" fill="#555">1:1</text>
+
+  <!-- GroceryOrders → GroceryProviders -->
+  <line x1="620" y1="140" x2="750" y2="140" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="665" y="133" font-size="10" fill="#555">*:1</text>
+
+  <!-- GroceryProviders → AuthTokens -->
+  <line x1="870" y1="252" x2="870" y2="450" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="878" y="360" font-size="10" fill="#555">1:*</text>
+
+  <!-- GroceryProviders → UserGroceryProviders -->
+  <line x1="870" y1="252" x2="870" y2="300" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="878" y="282" font-size="10" fill="#555">1:*</text>
+
+  <!-- AssistantResponses → ResponseCitations -->
+  <line x1="870" y1="948" x2="870" y2="1010" stroke="#555" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="878" y="984" font-size="10" fill="#555">1:*</text>
+
+  <!-- ResponseCitations → AcademicSearchResults -->
+  <line x1="750" y1="1059" x2="680" y2="1059" stroke="#555" stroke-width="1.2"/>
+  <line x1="680" y1="1059" x2="680" y2="982" stroke="#555" stroke-width="1.2"/>
+  <line x1="680" y1="982" x2="640" y2="982" stroke="#555" stroke-width="1.2" marker-end="url(#arrl)"/>
+  <text x="688" y="1025" font-size="10" fill="#555">*:1</text>
+
+  <!-- Legend -->
+  <rect x="40" y="1200" width="580" height="130" rx="6" fill="#f8f8f8" stroke="#ccc" stroke-width="1"/>
+  <text x="60" y="1225" font-size="13" font-weight="bold" fill="#1a1a1a">Legend</text>
+  <rect x="60" y="1238" width="14" height="14" rx="2" fill="#0f6e56"/>
+  <text x="82" y="1250" font-size="11" fill="#1a1a1a">Grocery cluster (Lists, Items, Orders, Tracking)</text>
+  <rect x="60" y="1258" width="14" height="14" rx="2" fill="#185fa5"/>
+  <text x="82" y="1270" font-size="11" fill="#1a1a1a">Provider cluster (Providers, AuthTokens)</text>
+  <rect x="60" y="1278" width="14" height="14" rx="2" fill="#854f0b"/>
+  <text x="82" y="1290" font-size="11" fill="#1a1a1a">Junction tables (composite PK/FK)</text>
+  <rect x="60" y="1298" width="14" height="14" rx="2" fill="#993556"/>
+  <text x="82" y="1310" font-size="11" fill="#1a1a1a">Research cluster (NutritionInfo, Academic, AI Responses)</text>
+  <text x="360" y="1250" font-size="11" fill="#0c447c" font-weight="bold">PK</text>
+  <text x="380" y="1250" font-size="11" fill="#1a1a1a">= Primary Key (underlined)</text>
+  <text x="360" y="1270" font-size="11" fill="#a32d2d" font-weight="bold">FK</text>
+  <text x="380" y="1270" font-size="11" fill="#1a1a1a">= Foreign Key</text>
+  <line x1="360" y1="1285" x2="420" y2="1285" stroke="#555" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="428" y="1290" font-size="11" fill="#1a1a1a">= optional relationship</text>
+  <line x1="360" y1="1305" x2="420" y2="1305" stroke="#555" stroke-width="1.2"/>
+  <text x="428" y="1310" font-size="11" fill="#1a1a1a">= required relationship</text>
+</svg>

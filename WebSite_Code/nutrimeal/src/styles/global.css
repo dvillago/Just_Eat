@@ -1,0 +1,270 @@
+/* ── Design System ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0e1117;
+  --bg-card: #161b25;
+  --bg-hover: #1e2535;
+  --border: #252d3d;
+  --text: #e8edf5;
+  --text-muted: #7a8599;
+  --accent: #4ade80;
+  --accent-dim: rgba(74, 222, 128, 0.12);
+  --accent2: #38bdf8;
+  --accent3: #fb923c;
+  --danger: #f87171;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --font: 'Sora', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────────*/
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.main-content { flex: 1; margin-top: var(--nav-h); padding: 24px 16px; max-width: 1280px; width: 100%; margin-left: auto; margin-right: auto; }
+
+/* ── Typography ──────────────────────────────────────────────────────────────*/
+h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.4rem; font-weight: 600; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+
+/* ── Cards ───────────────────────────────────────────────────────────────────*/
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────*/
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: var(--radius-sm);
+  border: none; cursor: pointer; font-family: var(--font);
+  font-size: 14px; font-weight: 600; transition: all 0.18s;
+}
+.btn-primary { background: var(--accent); color: #0a1a0e; }
+.btn-primary:hover { background: #22c55e; transform: translateY(-1px); }
+.btn-secondary { background: var(--bg-hover); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn-danger { background: rgba(248,113,113,0.15); color: var(--danger); border: 1px solid rgba(248,113,113,0.3); }
+.btn-danger:hover { background: rgba(248,113,113,0.25); }
+.btn-ghost { background: transparent; color: var(--text-muted); }
+.btn-ghost:hover { color: var(--text); background: var(--bg-hover); }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+
+/* ── Inputs ──────────────────────────────────────────────────────────────────*/
+.input, .select, .textarea {
+  width: 100%; padding: 10px 14px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-family: var(--font); font-size: 14px;
+  transition: border-color 0.18s;
+}
+.input:focus, .select:focus, .textarea:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+.input::placeholder { color: var(--text-muted); }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+
+/* ── Badges ──────────────────────────────────────────────────────────────────*/
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 600;
+}
+.badge-green { background: var(--accent-dim); color: var(--accent); }
+.badge-blue { background: rgba(56,189,248,0.12); color: var(--accent2); }
+.badge-orange { background: rgba(251,146,60,0.12); color: var(--accent3); }
+.badge-red { background: rgba(248,113,113,0.12); color: var(--danger); }
+.badge-muted { background: var(--bg-hover); color: var(--text-muted); }
+
+/* ── Progress Bars ───────────────────────────────────────────────────────────*/
+.progress-bar {
+  width: 100%; height: 8px;
+  background: var(--bg-hover);
+  border-radius: 4px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* ── Navbar ──────────────────────────────────────────────────────────────────*/
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(14,17,23,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 24px;
+}
+.navbar-inner {
+  display: flex; align-items: center;
+  max-width: 1280px; width: 100%; margin: auto;
+  gap: 8px;
+}
+.navbar-logo {
+  font-size: 1.1rem; font-weight: 700; color: var(--accent);
+  text-decoration: none; margin-right: 16px; white-space: nowrap;
+}
+.navbar-logo span { color: var(--text); }
+.nav-links { display: flex; gap: 2px; flex: 1; }
+.nav-link {
+  padding: 8px 14px; border-radius: var(--radius-sm);
+  color: var(--text-muted); text-decoration: none;
+  font-size: 14px; font-weight: 500; transition: all 0.18s;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--text); background: var(--bg-hover); }
+.nav-link.active { color: var(--accent); background: var(--accent-dim); }
+.nav-cart {
+  position: relative; margin-left: auto;
+  padding: 8px 16px; display: flex; align-items: center; gap: 8px;
+}
+.cart-badge {
+  position: absolute; top: 2px; right: 8px;
+  background: var(--accent); color: #0a1a0e;
+  font-size: 11px; font-weight: 700;
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Shop ────────────────────────────────────────────────────────────────────*/
+.shop-header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.category-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.category-tab {
+  padding: 6px 16px; border-radius: 20px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-muted); cursor: pointer; font-size: 13px;
+  font-family: var(--font); transition: all 0.18s;
+}
+.category-tab.active, .category-tab:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+.food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.food-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.food-card:hover { transform: translateY(-2px); border-color: #353f52; }
+.food-card-img { width: 100%; height: 180px; object-fit: cover; }
+.food-card-body { padding: 16px; }
+.food-card-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.food-card-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+.food-card-meta { display: flex; justify-content: space-between; align-items: center; }
+.food-price { font-size: 17px; font-weight: 700; color: var(--accent); }
+.food-macros { display: flex; gap: 10px; font-size: 12px; color: var(--text-muted); margin: 8px 0; font-family: var(--mono); }
+.food-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+
+/* ── Cart ────────────────────────────────────────────────────────────────────*/
+.cart-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+.cart-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.cart-item-img { width: 80px; height: 80px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; }
+.cart-item-info { flex: 1; }
+.qty-control { display: flex; align-items: center; gap: 12px; }
+.qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-hover); color: var(--text); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+.qty-num { font-weight: 600; min-width: 24px; text-align: center; }
+
+/* ── Checkout ─────────────────────────────────────────────────────────────────*/
+.checkout-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+.checkout-section { margin-bottom: 24px; }
+.checkout-section h3 { margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.delivery-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.delivery-option {
+  padding: 16px; border-radius: var(--radius-sm);
+  border: 2px solid var(--border); cursor: pointer;
+  transition: all 0.18s; text-align: center;
+}
+.delivery-option.selected { border-color: var(--accent); background: var(--accent-dim); }
+.payment-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.payment-method { padding: 14px; border: 2px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 10px; }
+.payment-method.selected { border-color: var(--accent2); background: rgba(56,189,248,0.08); }
+
+/* ── Orders ──────────────────────────────────────────────────────────────────*/
+.order-card { margin-bottom: 16px; }
+.order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.order-timeline { display: flex; gap: 0; margin: 16px 0; }
+.timeline-step { flex: 1; text-align: center; font-size: 12px; color: var(--text-muted); position: relative; }
+.timeline-step::before { content: ''; position: absolute; top: 10px; left: 50%; right: -50%; height: 2px; background: var(--border); z-index: 0; }
+.timeline-step:last-child::before { display: none; }
+.timeline-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--border); margin: 0 auto 6px; position: relative; z-index: 1; }
+.timeline-step.done .timeline-dot { background: var(--accent); }
+.timeline-step.done { color: var(--accent); }
+.stars { display: flex; gap: 4px; }
+.star { cursor: pointer; font-size: 20px; color: var(--border); transition: color 0.15s; }
+.star.filled { color: #fbbf24; }
+
+/* ── Nutrition ────────────────────────────────────────────────────────────────*/
+.nutrition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.macro-card { text-align: center; padding: 20px; }
+.macro-value { font-size: 2rem; font-weight: 700; font-family: var(--mono); }
+.macro-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.macro-target { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+/* ── Profile ──────────────────────────────────────────────────────────────────*/
+.profile-layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+.profile-nav { display: flex; flex-direction: column; gap: 4px; }
+.profile-nav-item { padding: 10px 14px; border-radius: var(--radius-sm); cursor: pointer; font-size: 14px; transition: all 0.15s; }
+.profile-nav-item:hover { background: var(--bg-hover); }
+.profile-nav-item.active { background: var(--accent-dim); color: var(--accent); }
+.toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.toggle { position: relative; width: 44px; height: 24px; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 12px; cursor: pointer; transition: background 0.2s; }
+.toggle-slider::after { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; border-radius: 50%; background: white; transition: transform 0.2s; }
+.toggle input:checked + .toggle-slider { background: var(--accent); }
+.toggle input:checked + .toggle-slider::after { transform: translateX(20px); }
+
+/* ── Chatbot ──────────────────────────────────────────────────────────────────*/
+.chat-layout { display: flex; flex-direction: column; height: calc(100vh - var(--nav-h) - 48px); }
+.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+.chat-bubble { max-width: 70%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.6; }
+.chat-bubble.user { background: var(--accent-dim); border: 1px solid rgba(74,222,128,0.2); align-self: flex-end; }
+.chat-bubble.assistant { background: var(--bg-card); border: 1px solid var(--border); align-self: flex-start; }
+.chat-input-row { display: flex; gap: 12px; padding: 16px; border-top: 1px solid var(--border); background: var(--bg); }
+
+/* ── Confirmation Modal ───────────────────────────────────────────────────────*/
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 440px; width: 100%; text-align: center; }
+.modal-icon { font-size: 3rem; margin-bottom: 16px; }
+.modal h2 { margin-bottom: 8px; }
+.modal p { color: var(--text-muted); margin-bottom: 24px; }
+
+/* ── Notifications ────────────────────────────────────────────────────────────*/
+.notification-bell { position: relative; }
+.notif-dot { position: absolute; top: 6px; right: 10px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent3); }
+
+/* ── Divider ──────────────────────────────────────────────────────────────────*/
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+/* ── Responsive ───────────────────────────────────────────────────────────────*/
+@media (max-width: 768px) {
+  .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
+  .profile-layout { grid-template-columns: 1fr; }
+  .nav-links .nav-link span { display: none; }
+  .food-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .food-card-img { height: 130px; }
+  .delivery-options, .payment-methods { grid-template-columns: 1fr; }
+  h1 { font-size: 1.5rem; }
+  .main-content { padding: 16px 12px; }
+  .chat-bubble { max-width: 90%; }
+}
